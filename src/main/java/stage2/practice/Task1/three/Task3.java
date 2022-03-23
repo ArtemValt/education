@@ -1,4 +1,4 @@
-package stage2.practice.three;
+package stage2.practice.Task1.three;
 
 import java.util.*;
 

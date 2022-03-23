@@ -1,4 +1,4 @@
-package stage2.practice.two;
+package stage2.practice.Task1.two;
 
 import java.util.Scanner;
 import java.util.Stack;

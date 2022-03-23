@@ -1,7 +1,6 @@
-package stage2.practice.one;
+package stage2.practice.Task1.one;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Task1Q {
     public static Deque<Character> queue = new LinkedList<>();
