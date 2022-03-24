@@ -3,8 +3,8 @@ package stage2.practice.Task2.ServiseToBD;
 import java.sql.SQLException;
 
 public interface Operation {
-     void Addcell();
+     void Addcell() throws SQLException;
      void printcell() throws SQLException;
-     void removecell();
-     void updetecell();
+     void removecell() throws SQLException;
+     void updetecell() throws SQLException;
 }

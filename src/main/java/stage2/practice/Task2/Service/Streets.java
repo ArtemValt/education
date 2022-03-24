@@ -4,6 +4,7 @@ public class Streets {
     private String name;
     private String type;
     private final long id ;
+    private final int city_id;
 
     public String getName() {
         return name;
@@ -25,10 +26,12 @@ public class Streets {
         return id;
     }
 
-    public Streets(String name, String type, long id) {
+    public Streets(long id,String name, String type, int city_id) {
+        this.id = id;
         this.name = name;
         this.type = type;
-        this.id = id;
+        this.city_id = city_id;
+
     }
 
     @Override
@@ -37,6 +40,7 @@ public class Streets {
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", id=" + id +
+                ", city_id=" + city_id +
                 '}';
     }
 }
