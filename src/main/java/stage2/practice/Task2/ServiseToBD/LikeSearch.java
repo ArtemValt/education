@@ -20,8 +20,8 @@ public class LikeSearch extends Table {
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите имя города которого хотите найти ");
         String answ = sc.nextLine();
-        ResultSet rs = st.executeQuery("SELECT * FROM Cityis WHERE LOWER(NAME) " +
-                "LIKE LOWER('%" + answ + "%');");
+        ResultSet rs = st.executeQuery("SELECT * FROM Cityis WHERE NAME " +
+                "LIKE ('%" + answ + "%');");
         task.add("\nПоиск города по имени " + answ);
         while (rs.next()) {
             System.out.println("\t- " + rs.getString("TYPE") +
@@ -80,8 +80,8 @@ public class LikeSearch extends Table {
 
         ResultSet rs = st.executeQuery("SELECT Cityis.ID, Cityis.TYPE, Cityis.NAME," +
                 " STREETS.TYPE, STREETS.NAME" +
-                " FROM Cityis, STREETS WHERE (LOWER(STREETS.NAME) " +
-                "LIKE LOWER('%" + answer + "%'))" +
+                " FROM Cityis, STREETS WHERE ((STREETS.NAME) " +
+                "LIKE ('%" + answer + "%'))" +
                 "AND (Cityis.ID = STREETS.cityID);");
 
         while (rs.next()) {
