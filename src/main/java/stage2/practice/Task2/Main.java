@@ -16,7 +16,8 @@ public class Main {
         CiryOPtoBD start = new CiryOPtoBD("Task");
         SreetsTOBD st = new SreetsTOBD();
         LikeSearch search = new LikeSearch();
-        search.search();
+        st.Addcell();
+      search.search();
 
 
 

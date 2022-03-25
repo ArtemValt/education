@@ -27,7 +27,7 @@ public class CiryOPtoBD extends Table implements Operation {
 
 
     @Override
-    public void Addcell()  throws SQLException {
+    public void Addcell() throws SQLException {
         Scanner sc = new Scanner(System.in);
         String name, type, dataown;
         int area;
@@ -56,25 +56,6 @@ public class CiryOPtoBD extends Table implements Operation {
     }
 
 
-    public void printcurrentcell() throws SQLException {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Введите название города ");
-        String  answer = sc.nextLine();
-        ResultSet resultSet = st.executeQuery("SELECT * FROM Cityis WHERE NAME = " + answer );
-        List<City> cities = new ArrayList<>();
-        while(resultSet.next()) {
-            String name = resultSet.getString(1);
-            int area = resultSet.getInt(2);
-            String type = resultSet.getString(3);
-            int dataown = resultSet.getInt(4);
-            int population = resultSet.getInt(5);
-            long id = resultSet.getLong(6);
-            cities.add(new City(name, area, type, dataown, population, id));
-        }
-        cities.stream().forEach(x -> System.out.println(x));
-
-    }
     @Override
     public void printcell() throws SQLException {
         List<City> cities = new ArrayList<>();
@@ -103,7 +84,7 @@ public class CiryOPtoBD extends Table implements Operation {
 
     @Override
     public void updetecell() throws SQLException {
-        printcurrentcell();
+        printcell();
         Scanner sc = new Scanner(System.in);
         String str = "";
         while (!str.equals("-")) {
@@ -156,7 +137,7 @@ public class CiryOPtoBD extends Table implements Operation {
             System.out.println("Желаете продолжить нажмите <+>" +
                     "\nЕсли хотите закончить нажмите <->");
             if (sc.nextLine().equals("-"))
-                str="-";
+                str = "-";
 
         }
 
