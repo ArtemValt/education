@@ -2,6 +2,7 @@ package stage2.practice.Task2;
 
 import stage2.practice.Task2.Connect.ConnectionCreator;
 import stage2.practice.Task2.ServiseToBD.CiryOPtoBD;
+import stage2.practice.Task2.ServiseToBD.LikeSearch;
 import stage2.practice.Task2.ServiseToBD.SreetsTOBD;
 
 import java.sql.Connection;
@@ -14,20 +15,10 @@ public class Main {
         connection.createConnection();
         CiryOPtoBD start = new CiryOPtoBD("Task");
         SreetsTOBD st = new SreetsTOBD();
+        LikeSearch search = new LikeSearch();
+        search.search();
 
-//        start.createTable();
-//        start.Addcell();
-//        start.updetecell();
-//        start.printcell();
-//        start.printcurrentcell();
-//        st.createTable();
-//        st.Addcell();
-//        st.printcell();
-//        st.removecell();
-//        st.printcell();
-        st.printcell();
-        st.updetecell();
-        st.printcell();
+
 
     }
 

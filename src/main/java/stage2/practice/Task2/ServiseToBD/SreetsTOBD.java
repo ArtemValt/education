@@ -18,8 +18,8 @@ public class SreetsTOBD extends Table implements Operation {
                 "ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
                 "NAME VARCHAR(255) NOT NULL," +
                 "TYPE VARCHAR(255) NOT NULL," +
-                "city_id INTEGER NOT NULL, " +
-                "FOREIGN KEY (city_id) REFERENCES Cityis(id))");
+                "cityID INTEGER NOT NULL, " +
+                "FOREIGN KEY (cityID) REFERENCES Cityis(id))");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SreetsTOBD extends Table implements Operation {
         System.out.println("Введите тип улицы: ");
         type = sc.nextLine();
         try {
-            st.execute("INSERT INTO streets (NAME,TYPE,city_id)  " +
+            st.execute("INSERT INTO streets (NAME,TYPE,cityID)  " +
                     "values('" + name + "', '" + type + "', '" + id + "');");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class SreetsTOBD extends Table implements Operation {
     @Override
     public void printcell() throws SQLException {
         List<Streets> streets = new ArrayList<>();
-        String sql = "SELECT  id ,name, type , city_id FROM streets";
+        String sql = "SELECT  id ,name, type , cityID FROM streets";
         ResultSet resultSet = st.executeQuery(sql);
         while (resultSet.next()) {
             Long id = resultSet.getLong(1);
@@ -95,7 +95,7 @@ public class SreetsTOBD extends Table implements Operation {
                     System.out.println("Введите новый город назначения");
                     answer = sc.nextLine();
                     st.executeUpdate("UPDATE streets " +
-                            "SET city_id = '" + Integer.parseInt(answer) + "' WHERE ID = " + Integer.parseInt(cell));
+                            "SET cityID = '" + Integer.parseInt(answer) + "' WHERE ID = " + Integer.parseInt(cell));
                     break;
                 default:
                     System.out.println("Такой операции нет");

@@ -63,13 +63,14 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
+        return "-----------------------------------------------------------\n" +
+                "City{" +
                 "name='" + name + '\'' +
                 ", area=" + area +
                 ", type='" + type + '\'' +
                 ", dataown=" + dataown +
                 ", areaNumber=" + population  +
                 ", id=" + id +
-                '}';
+                '}'+"\n-----------------------------------------------------------";
     }
 }

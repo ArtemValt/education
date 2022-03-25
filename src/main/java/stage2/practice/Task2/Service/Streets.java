@@ -36,11 +36,11 @@ public class Streets {
 
     @Override
     public String toString() {
-        return "Streets{" +
-                "name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", id=" + id +
-                ", city_id=" + city_id +
-                '}';
+        return "------------------------------------------------------------------\nStreets{" +
+                "name= '" + name +"'" +
+                "||| type= '" + type +"'" +
+                "||| id= '" + id +"'" +
+                "||| city_id= '" + city_id+"'" +
+                "\n------------------------------------------------------------------";
     }
 }
