@@ -177,6 +177,8 @@ public class LikeSearch extends Table {
                     6 по типу улицы (строгое соответствие)
                     7 показать файл запросов
                     8 Записать историю запросов в файл (ТХТ)
+                    9 показать все города
+                    
                     """);
             String answ = sc.nextLine();
             switch (answ) {
@@ -188,6 +190,7 @@ public class LikeSearch extends Table {
                 case "6" -> searchByType();
                 case "7" -> task.stream().forEach(x -> System.out.println(x));
                 case "8" -> tofile();
+                case "9" -> printcitys();
                 default -> System.out.println("Такого выбора нет");
             }
             System.out.println("Желаете продолжить ? " +
@@ -210,5 +213,8 @@ public class LikeSearch extends Table {
 
     }
 
-
+        public void printcitys() throws SQLException {
+        CiryOPtoBD ciryOPtoBD = new CiryOPtoBD("");
+        ciryOPtoBD.printcell();
+        }
 }
