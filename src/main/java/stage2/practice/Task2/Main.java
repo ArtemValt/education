@@ -13,10 +13,7 @@ public class Main {
     public static void main (String[] args) throws SQLException {
         ConnectionCreator connection = new ConnectionCreator();
         connection.createConnection();
-        CiryOPtoBD start = new CiryOPtoBD("Task");
-        SreetsTOBD st = new SreetsTOBD();
         LikeSearch search = new LikeSearch();
-        st.Addcell();
       search.search();
 
 
