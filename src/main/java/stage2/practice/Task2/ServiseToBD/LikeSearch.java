@@ -36,7 +36,7 @@ public class LikeSearch extends Table {
 
     public void searchByArea() throws SQLException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Какую бы вы операцию хотели совершить >=<");
+        System.out.println("Какую бы вы операцию хотели совершить ");
         String op = sc.nextLine();
         System.out.println("По какому значению будет произведен фильтр");
         String filt = sc.nextLine();
@@ -54,7 +54,7 @@ public class LikeSearch extends Table {
 
     public void searchbyPopul() throws SQLException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Какую бы вы операцию хотели совершить >=<");
+        System.out.println("Какую бы вы операцию хотели совершить ");
         String op = sc.nextLine();
         System.out.println("По какому значению будет произведен фильтр");
         String filt = sc.nextLine();
