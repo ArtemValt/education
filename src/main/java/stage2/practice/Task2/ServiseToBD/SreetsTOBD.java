@@ -23,7 +23,9 @@ public class SreetsTOBD extends Table implements Operation {
     }
 
     @Override
-    public void Addcell() {
+    public void Addcell() throws SQLException {
+        CiryOPtoBD tes = new CiryOPtoBD("");
+        tes.printcell();
         Scanner sc = new Scanner(System.in);
         String name, type;
         System.out.println("Введите id города,которому принаджелит данная улица");
