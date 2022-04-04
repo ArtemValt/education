@@ -24,7 +24,7 @@ public class SreetsTOBD extends Table implements Operation {
 
     @Override
     public void Addcell() throws SQLException {
-        CiryOPtoBD tes = new CiryOPtoBD("");
+        CiryOPtoBD tes = new CiryOPtoBD();
         tes.printcell();
         Scanner sc = new Scanner(System.in);
         String name, type;

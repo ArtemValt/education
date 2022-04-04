@@ -10,18 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Table  implements AutoCloseable  {
-    String tableName;
+
     ConnectionCreator conn = new ConnectionCreator();
     Connection connection = conn.createConnection();
 
-    Statement st = connection.createStatement();
-
-    public Table(String str) throws SQLException {
-        this.tableName=str;
-    }
+    public Statement st = connection.createStatement();
 
     public Table() throws SQLException {
     }
+
 
     @Override
     public void close() throws IOException {

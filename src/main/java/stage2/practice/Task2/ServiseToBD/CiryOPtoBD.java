@@ -10,10 +10,9 @@ import java.util.Scanner;
 
 public class CiryOPtoBD extends Table implements Operation {
 
-    public CiryOPtoBD(String str) throws SQLException {
-        super(str);
-    }
 
+    public CiryOPtoBD() throws SQLException {
+    }
 
     public void createTable() throws SQLException {
         st.execute("CREATE TABLE IF NOT EXISTS Cityis(" +

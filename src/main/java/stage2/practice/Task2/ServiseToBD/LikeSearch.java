@@ -1,5 +1,8 @@
 package stage2.practice.Task2.ServiseToBD;
 
+import stage2.practice.Task2.Service.City;
+import stage2.practice.Task2.Service.Streets;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -14,25 +17,43 @@ public class LikeSearch extends Table {
     public LikeSearch() throws SQLException {
 
     }
+    List<City> cityes = new ArrayList<>();
+    List<Streets> streets = new ArrayList<>();
 
+    public void upcoCityslection () throws SQLException {
+        String sql = "SELECT name, area, type , dataown , population , id FROM Cityis";
+        ResultSet resultSet = st.executeQuery(sql);
+        while (resultSet.next()) {
+            String name = resultSet.getString(1);
+            int area = resultSet.getInt(2);
+            String type = resultSet.getString(3);
+            int dataown = resultSet.getInt(4);
+            int population = resultSet.getInt(5);
+            long id = resultSet.getLong(6);
+            cityes.add(new City(name, area, type, dataown, population, id));
+        }
+    }
+    public void upcollstreats() throws SQLException {
+        String sql = "SELECT id,name, type,cityID  FROM streets";
+        ResultSet resultSet = st.executeQuery(sql);
+        while (resultSet.next()) {
+            int i = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            String type = resultSet.getString(3);
+            int cityid = resultSet.getInt(4);
+            streets.add(new Streets(i,name,type,cityid))     ;
+        }
+
+    }
     public void searchByname() throws SQLException {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите имя города которого хотите найти ");
         String answ = sc.nextLine();
-        ResultSet rs = st.executeQuery("SELECT * FROM Cityis WHERE NAME " +
-                "LIKE ('%" + answ + "%');");
         task.add("\nПоиск города по имени " + answ);
-        while (rs.next()) {
-            System.out.println("\t- " + rs.getString("TYPE") +
-                    "  " + rs.getString("NAME") + " с площадью " + rs.getString("area") + " тысячи (км) с населенеием "
-                    + rs.getString("population") + " тыс. человек ");
+        cityes.stream().filter(x->x.getName().equals(answ)).forEach(x-> System.out.println(x));
 
-            task.add("\t- " + rs.getString("TYPE") +
-                    "  " + rs.getString("NAME") + " с площадью " + rs.getString("area") + " тысячи (км) с населенеием "
-                    + rs.getString("population") + " тыс. человек ");
         }
-    }
 
     public void searchByArea() throws SQLException {
         Scanner sc = new Scanner(System.in);
@@ -40,17 +61,17 @@ public class LikeSearch extends Table {
         String op = sc.nextLine();
         System.out.println("По какому значению будет произведен фильтр");
         String filt = sc.nextLine();
-        ResultSet rs = st.executeQuery("SELECT * FROM Cityis WHERE area " + op + " " +
-                filt + ";");
-        task.add("\nПоиск по по плозади равной " + filt + " с фильтром " + op);
-        while (rs.next()) {
-            System.out.println("\t- " + rs.getString("TYPE") +
-                    "  " + rs.getString("NAME") + " с площадью " + rs.getString("area"));
-            task.add(rs.getString("TYPE")
-                    + " " + rs.getString("NAME")
-                    + " с площадью " + rs.getString("area") + "\n");
+        switch (op) {
+            case ">" -> cityes.stream().filter(x -> x.getArea() > Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case "=" -> cityes.stream().filter(x -> x.getArea() == Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case "<" -> cityes.stream().filter(x -> x.getArea() < Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case "<=" -> cityes.stream().filter(x -> x.getArea() <= Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case ">=" -> cityes.stream().filter(x -> x.getArea() >= Integer.parseInt(filt)).forEach(x -> System.out.println(x));
         }
+
+
     }
+
 
     public void searchbyPopul() throws SQLException {
         Scanner sc = new Scanner(System.in);
@@ -58,16 +79,14 @@ public class LikeSearch extends Table {
         String op = sc.nextLine();
         System.out.println("По какому значению будет произведен фильтр");
         String filt = sc.nextLine();
-        ResultSet rs = st.executeQuery("SELECT * FROM Cityis WHERE POPULATION " + op + " " +
-                filt + ";");
-        task.add("\nПоиск по по количеству населения " + filt + " с фильтром " + op);
-        while (rs.next()) {
-            System.out.println("\t- " + rs.getString("TYPE") +
-                    "  " + rs.getString("NAME") + " с площадью " + rs.getString("area"));
-            task.add(rs.getString("TYPE")
-                    + " " + rs.getString("NAME")
-                    + " с населенеием " + rs.getString("POPULATION") + " тыс. человек\n");
+        switch (op) {
+            case ">" -> cityes.stream().filter(x -> x.getAreaNumber() > Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case "=" -> cityes.stream().filter(x -> x.getAreaNumber() == Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case "<" -> cityes.stream().filter(x -> x.getAreaNumber() < Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case "<=" -> cityes.stream().filter(x -> x.getAreaNumber() <= Integer.parseInt(filt)).forEach(x -> System.out.println(x));
+            case ">=" -> cityes.stream().filter(x -> x.getAreaNumber() >= Integer.parseInt(filt)).forEach(x -> System.out.println(x));
         }
+
     }
 
     public void searchBynameStrets() throws SQLException {
@@ -75,54 +94,26 @@ public class LikeSearch extends Table {
 
         System.out.println("Выбрано: По названию улицы (like запрос)\nВведите название улицы (like запрос): ");
         String answer = sc.nextLine();
-        String id = "";
-        int count = 0;
+        streets.stream().filter(x->x.getName().contains(answer)).forEach(x-> System.out.println(x));
 
-        ResultSet rs = st.executeQuery("SELECT Cityis.ID, Cityis.TYPE, Cityis.NAME," +
-                " STREETS.TYPE, STREETS.NAME" +
-                " FROM Cityis, STREETS WHERE ((STREETS.NAME) " +
-                "LIKE ('%" + answer + "%'))" +
-                "AND (Cityis.ID = STREETS.cityID);");
 
-        while (rs.next()) {
-            if (!id.equals(rs.getString("Cityis.ID"))) {
-                System.out.println(rs.getString("Cityis.TYPE") + " \"" + rs.getString("Cityis.NAME") + "\"");
-                task.add("\nВ " + rs.getString("Cityis.TYPE") + " \"" + rs.getString("Cityis.NAME") +
-                        "\"\nНашлись такие улицы: ");
-                id = rs.getString("Cityis.ID");
-            }
-            count++;
-            System.out.println("\t- " + rs.getString("STREETS.TYPE") +
-                    "\" " + rs.getString("STREETS.NAME") + "\"");
-            task.add("\t- " + rs.getString("STREETS.TYPE") +
-                    " \"" + rs.getString("STREETS.NAME") + "\"");
         }
-        if (count == 0) {
-            System.out.println("Городов с такими именами улиц нет :(");
-            task.add("Городов с такими именами улиц нет :(");
-        }
-    }
+
+
 
     public void searchByAge() throws SQLException {
         System.out.println("Какую операцию вы бы хотели выбрать " +
                 "\n 1) Строгое соответсвие" +
                 "\n 2) В диапазоне");
         Scanner sc = new Scanner(System.in);
-        String x = sc.nextLine();
-        switch (x) {
+        String a = sc.nextLine();
+        switch (a) {
             case "1" -> {
                 System.out.println("Введите дату");
                 String date = sc.nextLine();
                 task.add("\nУлицы с датой основания " + date + "\n");
-                ResultSet rs = st.executeQuery("SELECT * FROM Cityis WHERE dataown = '" + date + "';");
-                while (rs.next()) {
-                    System.out.println("\t- " + rs.getString("TYPE") +
-                            "  " + rs.getString("NAME") + " c датой основания "
-                            + rs.getString("dataown"));
-                    task.add(rs.getString("TYPE")
-                            + " " + rs.getString("NAME")
-                            + " c датой основания " + rs.getString("dataown") + "\n");
-                }
+                cityes.stream().filter(x -> x.getDataown() == Integer.parseInt(date))
+                        .forEach(x -> System.out.println(x));
             }
             case "2" -> {
                 System.out.println("Введите 1 дату диапазона ");
@@ -130,16 +121,8 @@ public class LikeSearch extends Table {
                 System.out.println("Введите 2 дату диапазона ");
                 String date2 = sc.nextLine();
                 task.add("\nУлицы с датой основания в диапазоне от " + date1 + " до " + date2 + "\n");
-
-                ResultSet rs = st.executeQuery("SELECT * FROM Cityis WHERE dataown BETWEEN '" + date1 + "' AND '" + date2 + "';");
-                while (rs.next()) {
-                    System.out.println("\t- " + rs.getString("TYPE") +
-                            "  " + rs.getString("NAME") + " c датой основания "
-                            + rs.getString("dataown"));
-                    task.add(rs.getString("TYPE")
-                            + " " + rs.getString("NAME")
-                            + " c датой основания " + rs.getString("dataown") + "\n");
-                }
+                cityes.stream().filter(x -> x.getDataown() > Integer.parseInt(date1) && x.getDataown() < Integer.parseInt(date2))
+                        .forEach(x -> System.out.println(x));
             }
             default -> System.out.println("Такого выбора нет");
         }
@@ -149,17 +132,7 @@ public class LikeSearch extends Table {
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите тип улицы которого хотите найти ");
         String answ = sc.nextLine();
-        ResultSet rs = st.executeQuery("SELECT * FROM streets WHERE type  " +
-                "LIKE ('%" + answ + "%');");
-        task.add("\nУлицы по типу " + answ + "\n");
-        while (rs.next()) {
-            System.out.println("Name = " + rs.getString(2) + " Type = " +
-                    rs.getString(3) + " City_id = " + rs.getString(4));
-            task.add(
-                    "Name = " + rs.getString(2) + " Type = " +
-                            rs.getString(3) + " City_id = " + rs.getString(4));
-        }
-
+        streets.stream().filter(x->x.getType().equals(answ)).forEach(x-> System.out.println(x));
     }
 
     public void search() throws SQLException {
@@ -214,7 +187,7 @@ public class LikeSearch extends Table {
     }
 
         public void printcitys() throws SQLException {
-        CiryOPtoBD ciryOPtoBD = new CiryOPtoBD("");
+        CiryOPtoBD ciryOPtoBD = new CiryOPtoBD();
         ciryOPtoBD.printcell();
         }
 }

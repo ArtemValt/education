@@ -28,7 +28,7 @@ public class Main {
                 case "1" -> {
                     String case1 = "";
                     while (!case1.equals("-")) {
-                        CiryOPtoBD citytest = new CiryOPtoBD("");
+                        CiryOPtoBD citytest = new CiryOPtoBD();
                         System.out.println("""
                                 Чтобы вы хотели сделать?
                                 1)Добавить ячейку "город"
@@ -83,6 +83,8 @@ public class Main {
                 }
                 case "3" -> {
                     LikeSearch search = new LikeSearch();
+                    search.upcoCityslection();
+                    search.upcollstreats();
                     search.search();
                 }
             }
