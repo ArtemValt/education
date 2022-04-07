@@ -1,28 +1,31 @@
 package stage2.practice.Task3.ALG;
 
+import stage2.practice.Task2.ServiseToBD.Table;
 import stage2.practice.Task3.Cell;
 import stage2.practice.Task3.Location;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
-public class DFS {
+public class DFS extends Table {
     private Cell[][] maze;
     private Location[][] prev;
 
     private int width;
     private int length;
+    public static int id=0;
 
     private Location lastNode;
 
-    public DFS(Cell[][] maze, int length, int width)   {
+    public DFS(Cell[][] maze, int length, int width) throws SQLException {
 
         this.maze = maze;
         this.length = length;
         this.width = width;
-
+        id++;
         prev = new Location[length][width];
     }  private boolean inBoundsX(int number){
     return number >= 0 && number < width;
@@ -57,7 +60,7 @@ public class DFS {
         }
     }
 
-    public void fillPath()  {
+    public void fillPath() throws SQLException {
         if (lastNode == null) {
             System.out.println("No path in maze");
         } else {
@@ -103,6 +106,22 @@ public class DFS {
         }
         return neighbours;
     }
+    public void goBD(Cell[][] grid,Integer id) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+
+        for (Cell[] row : grid) {
+            Integer i=0;
+            st.execute("INSERT INTO DFS (X,LABYRINTH_ID) VALUES ("+i.toString()+","+id+")");
+
+            i++;
+            for (Cell cell : row) {
+                st.execute("INSERT INTO DFS (Y,LABYRINTH_ID) VALUES ("+"'"+String.valueOf(cell.toString())+"'"+","+id+")");
+                sb.append(cell.toString());
+            }
+            sb.append(System.lineSeparator());
+        }
+        st.close();
+    }
     public String printlab(Cell[][] grid) {
         StringBuilder sb = new StringBuilder();
         for (Cell[] row : grid) {
@@ -112,5 +131,17 @@ public class DFS {
             sb.append(System.lineSeparator());
         }
         return sb.toString();
+    }
+    public void createTable() throws SQLException {
+        st.execute("CREATE TABLE IF NOT EXISTS DFS(" +
+                "ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                "X VARCHAR (255)," +
+                "Y VARCHAR (255)," +
+                "LABYRINTH_ID BIGINT," +
+                "FOREIGN KEY (LABYRINTH_ID) REFERENCES Labyrinth(ID));");
+    }
+    public void deleteBD() throws SQLException {
+        st.execute(" DELETE FROM DFS");
+        st.close();
     }
 }

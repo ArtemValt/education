@@ -17,6 +17,7 @@ public class LikeSearch extends Table {
     public LikeSearch() throws SQLException {
 
     }
+
     List<City> cityes = new ArrayList<>();
     List<Streets> streets = new ArrayList<>();
 

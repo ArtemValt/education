@@ -1,12 +1,14 @@
 package stage2.practice.Task3.ALG;
 
+import stage2.practice.Task2.ServiseToBD.Table;
 import stage2.practice.Task3.Cell;
 import stage2.practice.Task3.Location;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BFS {
+public class BFS extends Table {
     private static int startX;
     private static int startY;
     private static int endX;
@@ -17,8 +19,9 @@ public class BFS {
     private static Queue<Location> queue;
     private static Location[][] path;
     private static boolean[][] visited;
+    public static int id =0;
 
-    public BFS(Cell[][] maze, int rows, int columns) {
+    public BFS(Cell[][] maze, int rows, int columns) throws SQLException {
         BFS.maze = maze;
         BFS.rows = rows;
         BFS.columns = columns;
@@ -30,6 +33,7 @@ public class BFS {
         endY = columns - 1;
         queue = new LinkedList<Location>();
         queue.add(new Location(startX, startY));
+        id++;
     }
 
     public void createRoad(Location[][] path, int x, int y) {
@@ -86,5 +90,33 @@ public class BFS {
             }
         }
     }
+    public void createTable() throws SQLException {
+        st.execute("CREATE TABLE IF NOT EXISTS BFS(" +
+                "ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                "X VARCHAR (255)," +
+                "Y VARCHAR (255)," +
+                "LABYRINTH_ID BIGINT," +
+                "FOREIGN KEY (LABYRINTH_ID) REFERENCES Labyrinth(ID));");
+    }
+    public void goBD(Cell[][] grid,Integer id) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+
+        for (Cell[] row : grid) {
+            Integer i=0;
+            st.execute("INSERT INTO BFS (X,LABYRINTH_ID) VALUES ("+i.toString()+","+id+")");
+
+            i++;
+            for (Cell cell : row) {
+                st.execute("INSERT INTO BFS (Y,LABYRINTH_ID) VALUES ("+"'"+String.valueOf(cell.toString())+"'"+","+id+")");
+            }
+            sb.append(System.lineSeparator());
+        }
+        st.close();
+    }
+    public void deleteBD() throws SQLException {
+        st.execute(" DELETE FROM BFS");
+        st.close();
+    }
+
 
 }

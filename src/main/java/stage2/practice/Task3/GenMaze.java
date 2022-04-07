@@ -1,11 +1,17 @@
 package stage2.practice.Task3;
 
-public class GenMaze {
+import stage2.practice.Task2.ServiseToBD.Table;
+
+import java.sql.SQLException;
+
+public class GenMaze extends Table {
     private final int rows, columns;
     private Cell[][] grid;
 
 
-    public GenMaze(int rows, int columns) {
+
+    public GenMaze(int rows, int columns) throws SQLException {
+
         this.rows = rows;
         this.columns = columns;
         grid =new Cell[rows][columns];
@@ -39,5 +45,13 @@ public class GenMaze {
         }
         return sb.toString();
     }
+
+    public void createTable() throws SQLException {
+        st.execute("CREATE TABLE IF NOT EXISTS Labyrinth(" +
+                "ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                "NAME VARCHAR(255) NOT NULL);");
+    }
+    
+
 
 }
