@@ -11,6 +11,7 @@ public class ConnectionCreator {
     private static final String PASSWORD_KEY ="db.password";
     private static final String USERNAME_KEY ="db.username";
     private static final String URL_KEY ="db.url";
+
     static {
         try {
             String driverName = PropertiesUtil.get("db.driver");

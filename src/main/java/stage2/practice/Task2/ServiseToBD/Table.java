@@ -11,10 +11,26 @@ import java.sql.Statement;
 
 public class Table  implements AutoCloseable  {
 
-    ConnectionCreator conn = new ConnectionCreator();
-    Connection connection = conn.createConnection();
+    static ConnectionCreator conn = new ConnectionCreator();
+    static Connection connection;
 
-    public Statement st = connection.createStatement();
+    static {
+        try {
+            connection = conn.createConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Statement st;
+
+    static {
+        try {
+            st = connection.createStatement();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Table() throws SQLException {
     }
